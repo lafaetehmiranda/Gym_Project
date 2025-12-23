@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-initial-schema" author="system">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="usertype" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="students">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="trainees">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="value" type="DOUBLE PRECISION"/>
+            <column name="disponibilidade" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="onboarding_aluno">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="objetivo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="experiencia" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="disponibilidade" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observacoes" type="TEXT"/>
+            <column name="criado_em" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="atualizado_em" type="TIMESTAMP"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="onboarding_preferencias">
+            <column name="onboarding_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="preferencia" type="VARCHAR(255)"/>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="onboarding_preferencias" baseColumnNames="onboarding_id"
+                                 referencedTableName="onboarding_aluno" referencedColumnNames="id"
+                                 constraintName="fk_onboarding_preferencias"/>
+
+    </changeSet>
+
+</databaseChangeLog>

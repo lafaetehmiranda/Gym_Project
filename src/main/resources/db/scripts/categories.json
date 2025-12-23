@@ -1,0 +1,224 @@
+[
+    {
+        "name": "Musculação / Hipertrofia",
+        "value": "musculacao",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Treinamento de Força",
+        "value": "forca",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Condicionamento Físico Geral",
+        "value": "condicionamento",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Treino Funcional",
+        "value": "funcional",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Cross Training",
+        "value": "cross_training",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "HIIT",
+        "value": "hiit",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Circuit Training",
+        "value": "circuito",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Treino em Casa",
+        "value": "home_training",
+        "category": "physical_training",
+        "active": true
+    },
+    {
+        "name": "Emagrecimento",
+        "value": "emagrecimento",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Qualidade de Vida",
+        "value": "qualidade_vida",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Postura e Correção Postural",
+        "value": "postura",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Prevenção de Lesões",
+        "value": "prevencao_lesoes",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Reabilitação Física",
+        "value": "reabilitacao",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Dor Lombar",
+        "value": "lombar",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Mobilidade",
+        "value": "mobilidade",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Alongamento",
+        "value": "alongamento",
+        "category": "health_wellness",
+        "active": true
+    },
+    {
+        "name": "Idosos / Terceira Idade",
+        "value": "terceira_idade",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Iniciantes",
+        "value": "iniciantes",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Atletas",
+        "value": "atletas",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Gestantes",
+        "value": "gestantes",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Pessoas com Sobrepeso",
+        "value": "sobrepeso",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Adolescentes",
+        "value": "adolescentes",
+        "category": "specific_audience",
+        "active": true
+    },
+    {
+        "name": "Performance Esportiva",
+        "value": "performance",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Futebol",
+        "value": "futebol",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Corrida",
+        "value": "corrida",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Ciclismo",
+        "value": "ciclismo",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Lutas / Artes Marciais",
+        "value": "lutas",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Crossfit",
+        "value": "crossfit",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Preparação Física",
+        "value": "preparacao_fisica",
+        "category": "performance_sports",
+        "active": true
+    },
+    {
+        "name": "Pilates Solo",
+        "value": "pilates",
+        "category": "body_mind",
+        "active": true
+    },
+    {
+        "name": "Yoga",
+        "value": "yoga",
+        "category": "body_mind",
+        "active": true
+    },
+    {
+        "name": "Treino de Respiração",
+        "value": "respiracao",
+        "category": "body_mind",
+        "active": true
+    },
+    {
+        "name": "Consciência Corporal",
+        "value": "consciencia_corporal",
+        "category": "body_mind",
+        "active": true
+    },
+    {
+        "name": "Presencial",
+        "value": "presencial",
+        "category": "service_format",
+        "active": true
+    },
+    {
+        "name": "Online",
+        "value": "online",
+        "category": "service_format",
+        "active": true
+    },
+    {
+        "name": "Híbrido",
+        "value": "hibrido",
+        "category": "service_format",
+        "active": true
+    },
+    {
+        "name": "Consultoria Online",
+        "value": "consultoria_online",
+        "category": "service_format",
+        "active": true
+    }
+]

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="002-add-categories" author="system">
+        <createTable tableName="categories">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="category" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <sql>
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Musculação / Hipertrofia', 'musculacao', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Treinamento de Força', 'forca', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Condicionamento Físico Geral', 'condicionamento', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Treino Funcional', 'funcional', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Cross Training', 'cross_training', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'HIIT', 'hiit', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Circuit Training', 'circuito', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Treino em Casa', 'home_training', 'physical_training', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Emagrecimento', 'emagrecimento', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Qualidade de Vida', 'qualidade_vida', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Postura e Correção Postural', 'postura', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Prevenção de Lesões', 'prevencao_lesoes', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Reabilitação Física', 'reabilitacao', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Dor Lombar', 'lombar', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Mobilidade', 'mobilidade', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Alongamento', 'alongamento', 'health_wellness', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Idosos / Terceira Idade', 'terceira_idade', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Iniciantes', 'iniciantes', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Atletas', 'atletas', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Gestantes', 'gestantes', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Pessoas com Sobrepeso', 'sobrepeso', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Adolescentes', 'adolescentes', 'specific_audience', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Performance Esportiva', 'performance', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Futebol', 'futebol', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Corrida', 'corrida', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Ciclismo', 'ciclismo', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Lutas / Artes Marciais', 'lutas', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Crossfit', 'crossfit', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Preparação Física', 'preparacao_fisica', 'performance_sports', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Pilates Solo', 'pilates', 'body_mind', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Yoga', 'yoga', 'body_mind', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Treino de Respiração', 'respiracao', 'body_mind', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Consciência Corporal', 'consciencia_corporal', 'body_mind', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Presencial', 'presencial', 'service_format', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Online', 'online', 'service_format', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Híbrido', 'hibrido', 'service_format', true);
+            INSERT INTO categories (id, name, value, category, active) VALUES (gen_random_uuid(), 'Consultoria Online', 'consultoria_online', 'service_format', true);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

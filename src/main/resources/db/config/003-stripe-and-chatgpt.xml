@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="003-stripe-and-chatgpt" author="system">
+        <addColumn tableName="users">
+            <column name="name" type="VARCHAR(100)"/>
+            <column name="email" type="VARCHAR(150)">
+                <constraints unique="true"/>
+            </column>
+        </addColumn>
+
+        <createTable tableName="trainer_accounts">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trainer_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_trainer" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="gateway" type="VARCHAR(30)"/>
+            <column name="gateway_account_id" type="VARCHAR(100)"/>
+            <column name="status" type="VARCHAR(30)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="now()"/>
+        </createTable>
+
+        <createTable tableName="payments">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_student" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="trainer_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_trainer_payment" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="gateway" type="VARCHAR(30)"/>
+            <column name="gateway_payment_id" type="VARCHAR(150)"/>
+            <column name="amount_total" type="BIGINT"/>
+            <column name="platform_fee" type="BIGINT"/>
+            <column name="trainer_amount" type="BIGINT"/>
+            <column name="status" type="VARCHAR(30)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="now()"/>
+        </createTable>
+
+        <createTable tableName="payouts">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trainer_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_trainer_payout" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="gateway_payout_id" type="VARCHAR(150)"/>
+            <column name="amount" type="BIGINT"/>
+            <column name="status" type="VARCHAR(30)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="now()"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

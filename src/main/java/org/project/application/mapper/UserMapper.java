@@ -10,6 +10,8 @@ public class UserMapper {
     public UserDTO toDTO(User user) {
         return new UserDTO(
                 user.getId(),
-                user.getUserType());
+                user.getUserType(),
+                user.getName(),
+                user.getEmail());
     }
 }

@@ -5,6 +5,8 @@ import org.project.domain.enums.UserType;
 import java.util.UUID;
 
 public record UserDTO(
-        UUID id,
-        UserType userType) {
+                UUID id,
+                UserType userType,
+                String name,
+                String email) {
 }

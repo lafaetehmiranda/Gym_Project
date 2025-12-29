@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUI
 
     @Override
     public User save(User user) {
-        UserEntity entity = new UserEntity(user.getId(), user.getUserType());
+        UserEntity entity = new UserEntity(user.getId(), user.getUserType(), user.getName(), user.getEmail());
         persist(entity);
         return toDomain(entity);
     }
@@ -45,6 +45,6 @@ public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUI
     }
 
     private User toDomain(UserEntity entity) {
-        return new User(entity.getId(), entity.getUserType());
+        return new User(entity.getId(), entity.getUserType(), entity.getName(), entity.getEmail());
     }
 }

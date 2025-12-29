@@ -35,13 +35,14 @@ public class TraineeEntity {
 
     private Double value;
 
-    private String disponibilidade;
+    @Column(name = "availability")
+    private String availability;
 
     public TraineeEntity() {
     }
 
     public TraineeEntity(UUID id, String name, LocalDateTime createdAt, LocalDateTime updatedAt,
-            boolean active, UUID studentId, String description, Double value, String disponibilidade) {
+            boolean active, UUID studentId, String description, Double value, String availability) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -50,7 +51,7 @@ public class TraineeEntity {
         this.studentId = studentId;
         this.description = description;
         this.value = value;
-        this.disponibilidade = disponibilidade;
+        this.availability = availability;
     }
 
     public UUID getId() {
@@ -117,11 +118,11 @@ public class TraineeEntity {
         this.value = value;
     }
 
-    public String getDisponibilidade() {
-        return disponibilidade;
+    public String getAvailability() {
+        return availability;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 }

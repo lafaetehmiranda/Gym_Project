@@ -5,42 +5,42 @@ import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.net.Webhook;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.HeaderParam;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.project.domain.repository.PaymentRepository;
+import org.project.application.service.PaymentService;
+import org.jboss.logging.Logger;
 
 @Path("/webhooks/stripe")
 public class StripeWebhookResource {
 
-    @Inject
-    PaymentRepository paymentRepository;
+    private static final Logger LOG = Logger.getLogger(StripeWebhookResource.class);
 
     @ConfigProperty(name = "stripe.webhook.secret")
-    String webhookSecret;
+    String endpointSecret;
+
+    @Inject
+    PaymentService paymentService;
 
     @POST
-    @Transactional
-    public Response handle(String payload,
-            @HeaderParam("Stripe-Signature") String signature) {
-
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response handleWebhook(String payload, @HeaderParam("Stripe-Signature") String sigHeader) {
         Event event;
+
         try {
-            event = Webhook.constructEvent(payload, signature, webhookSecret);
+            event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
         } catch (SignatureVerificationException e) {
+            LOG.error("Invalid Stripe signature", e);
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        if ("payment_intent.succeeded".equals(event.getType())) {
-            PaymentIntent intent = (PaymentIntent) event.getDataObjectDeserializer()
-                    .getObject().orElse(null);
+        LOG.infof("Received Stripe event: %s", event.getType());
 
-            if (intent != null) {
-                paymentRepository.findByGatewayPaymentId(intent.getId())
-                        .ifPresent(payment -> payment.status = "PAID");
+        if ("payment_intent.succeeded".equals(event.getType())) {
+            PaymentIntent paymentIntent = (PaymentIntent) event.getDataObjectDeserializer().getObject().orElse(null);
+            if (paymentIntent != null) {
+                paymentService.confirmPayment(paymentIntent.getId());
             }
         }
 

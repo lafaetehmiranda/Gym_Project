@@ -12,30 +12,127 @@ import java.util.UUID;
 public class PaymentEntity {
 
     @Id
-    public UUID id;
+    private UUID id;
 
     @Column(name = "student_id")
-    public UUID studentId;
+    private UUID studentId;
 
     @Column(name = "trainer_id")
-    public UUID trainerId;
+    private UUID trainerId;
 
-    public String gateway;
+    private String gateway;
 
     @Column(name = "gateway_payment_id")
-    public String gatewayPaymentId;
+    private String gatewayPaymentId;
 
     @Column(name = "amount_total")
-    public Long amountTotal;
+    private Long amountTotal;
 
     @Column(name = "platform_fee")
-    public Long platformFee;
+    private Long platformFee;
 
     @Column(name = "trainer_amount")
-    public Long trainerAmount;
+    private Long trainerAmount;
 
-    public String status;
+    private String status;
 
     @Column(name = "created_at")
-    public Instant createdAt;
+    private Instant createdAt;
+
+    public PaymentEntity() {
+    }
+
+    public PaymentEntity(UUID id, UUID studentId, UUID trainerId, String gateway, String gatewayPaymentId,
+            Long amountTotal, Long platformFee, Long trainerAmount, String status, Instant createdAt) {
+        this.id = id;
+        this.studentId = studentId;
+        this.trainerId = trainerId;
+        this.gateway = gateway;
+        this.gatewayPaymentId = gatewayPaymentId;
+        this.amountTotal = amountTotal;
+        this.platformFee = platformFee;
+        this.trainerAmount = trainerAmount;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(UUID studentId) {
+        this.studentId = studentId;
+    }
+
+    public UUID getTrainerId() {
+        return trainerId;
+    }
+
+    public void setTrainerId(UUID trainerId) {
+        this.trainerId = trainerId;
+    }
+
+    public String getGateway() {
+        return gateway;
+    }
+
+    public void setGateway(String gateway) {
+        this.gateway = gateway;
+    }
+
+    public String getGatewayPaymentId() {
+        return gatewayPaymentId;
+    }
+
+    public void setGatewayPaymentId(String gatewayPaymentId) {
+        this.gatewayPaymentId = gatewayPaymentId;
+    }
+
+    public Long getAmountTotal() {
+        return amountTotal;
+    }
+
+    public void setAmountTotal(Long amountTotal) {
+        this.amountTotal = amountTotal;
+    }
+
+    public Long getPlatformFee() {
+        return platformFee;
+    }
+
+    public void setPlatformFee(Long platformFee) {
+        this.platformFee = platformFee;
+    }
+
+    public Long getTrainerAmount() {
+        return trainerAmount;
+    }
+
+    public void setTrainerAmount(Long trainerAmount) {
+        this.trainerAmount = trainerAmount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 }

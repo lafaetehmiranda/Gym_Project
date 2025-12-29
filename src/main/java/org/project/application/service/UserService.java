@@ -28,7 +28,7 @@ public class UserService {
 
     @Transactional
     public UserDTO create(CreateUserRequest request) {
-        User user = User.create(request.userType(), request.name(), request.email(), "");
+        User user = User.create(request.userType(), request.name(), request.email(), "", request.phoneNumber());
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
     }

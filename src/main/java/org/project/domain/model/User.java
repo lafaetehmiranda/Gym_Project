@@ -11,17 +11,19 @@ public class User {
     private final String name;
     private final String email;
     private final String password;
+    private final String phoneNumber;
 
-    public User(UUID id, UserType userType, String name, String email, String password) {
+    public User(UUID id, UserType userType, String name, String email, String password, String phoneNumber) {
         this.id = id;
         this.userType = userType;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
 
-    public static User create(UserType userType, String name, String email, String password) {
-        return new User(UUID.randomUUID(), userType, name, email, password);
+    public static User create(UserType userType, String name, String email, String password, String phoneNumber) {
+        return new User(UUID.randomUUID(), userType, name, email, password, phoneNumber);
     }
 
     public UUID getId() {
@@ -42,5 +44,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

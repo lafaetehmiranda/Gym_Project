@@ -13,10 +13,10 @@ public class Trainee {
     private final UUID studentId;
     private final String description;
     private final Double value;
-    private final String disponibilidade;
+    private final String availability;
 
     public Trainee(UUID id, String name, LocalDateTime createdAt, LocalDateTime updatedAt,
-            boolean active, UUID studentId, String description, Double value, String disponibilidade) {
+            boolean active, UUID studentId, String description, Double value, String availability) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -25,28 +25,28 @@ public class Trainee {
         this.studentId = studentId;
         this.description = description;
         this.value = value;
-        this.disponibilidade = disponibilidade;
+        this.availability = availability;
     }
 
     public static Trainee create(String name, UUID studentId, String description, Double value,
-            String disponibilidade) {
+            String availability) {
         LocalDateTime now = LocalDateTime.now();
-        return new Trainee(UUID.randomUUID(), name, now, now, true, studentId, description, value, disponibilidade);
+        return new Trainee(UUID.randomUUID(), name, now, now, true, studentId, description, value, availability);
     }
 
-    public Trainee updateDetails(String name, String description, Double value, String disponibilidade) {
+    public Trainee updateDetails(String name, String description, Double value, String availability) {
         return new Trainee(this.id, name, this.createdAt, LocalDateTime.now(), this.active,
-                this.studentId, description, value, disponibilidade);
+                this.studentId, description, value, availability);
     }
 
     public Trainee deactivate() {
         return new Trainee(this.id, this.name, this.createdAt, LocalDateTime.now(), false,
-                this.studentId, this.description, this.value, this.disponibilidade);
+                this.studentId, this.description, this.value, this.availability);
     }
 
     public Trainee activate() {
         return new Trainee(this.id, this.name, this.createdAt, LocalDateTime.now(), true,
-                this.studentId, this.description, this.value, this.disponibilidade);
+                this.studentId, this.description, this.value, this.availability);
     }
 
     public UUID getId() {
@@ -81,7 +81,7 @@ public class Trainee {
         return value;
     }
 
-    public String getDisponibilidade() {
-        return disponibilidade;
+    public String getAvailability() {
+        return availability;
     }
 }

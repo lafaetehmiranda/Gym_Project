@@ -34,7 +34,7 @@ public class TraineeService {
                 request.studentId(),
                 request.description(),
                 request.value(),
-                request.disponibilidade());
+                request.availability());
         Trainee savedTrainee = traineeRepository.save(trainee);
         return traineeMapper.toDTO(savedTrainee);
     }
@@ -69,7 +69,7 @@ public class TraineeService {
                         request.name(),
                         request.description(),
                         request.value(),
-                        request.disponibilidade()))
+                        request.availability()))
                 .map(traineeRepository::save)
                 .map(traineeMapper::toDTO);
     }

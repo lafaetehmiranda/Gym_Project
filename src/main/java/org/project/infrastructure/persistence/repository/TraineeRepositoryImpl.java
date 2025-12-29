@@ -25,15 +25,18 @@ public class TraineeRepositoryImpl implements PanacheRepositoryBase<TraineeEntit
                 trainee.getStudentId(),
                 trainee.getDescription(),
                 trainee.getValue(),
-                trainee.getDisponibilidade());
-        persist(entity);
+                trainee.getAvailability());
+        if (existsById(entity.getId())) {
+            getEntityManager().merge(entity);
+        } else {
+            persist(entity);
+        }
         return toDomain(entity);
     }
 
     @Override
     public Optional<Trainee> findDomainById(UUID id) {
-        TraineeEntity entity = find("id", id).firstResult();
-        return entity != null ? Optional.of(toDomain(entity)) : Optional.empty();
+        return findByIdOptional(id).map(this::toDomain);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class TraineeRepositoryImpl implements PanacheRepositoryBase<TraineeEntit
 
     @Override
     public boolean deleteById(UUID id) {
-        return delete("id = ?1", id) > 0;
+        return delete("id", id) > 0;
     }
 
     @Override
@@ -77,6 +80,6 @@ public class TraineeRepositoryImpl implements PanacheRepositoryBase<TraineeEntit
                 entity.getStudentId(),
                 entity.getDescription(),
                 entity.getValue(),
-                entity.getDisponibilidade());
+                entity.getAvailability());
     }
 }

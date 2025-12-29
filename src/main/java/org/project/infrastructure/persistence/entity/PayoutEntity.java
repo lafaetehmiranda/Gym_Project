@@ -8,8 +8,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "trainer_accounts")
-public class TrainerAccountEntity {
+@Table(name = "payouts")
+public class PayoutEntity {
 
     @Id
     private UUID id;
@@ -17,25 +17,25 @@ public class TrainerAccountEntity {
     @Column(name = "trainer_id")
     private UUID trainerId;
 
-    private String gateway;
+    @Column(name = "gateway_payout_id")
+    private String gatewayPayoutId;
 
-    @Column(name = "gateway_account_id")
-    private String gatewayAccountId;
+    private Long amount;
 
     private String status;
 
     @Column(name = "created_at")
     private Instant createdAt;
 
-    public TrainerAccountEntity() {
+    public PayoutEntity() {
     }
 
-    public TrainerAccountEntity(UUID id, UUID trainerId, String gateway, String gatewayAccountId, String status,
+    public PayoutEntity(UUID id, UUID trainerId, String gatewayPayoutId, Long amount, String status,
             Instant createdAt) {
         this.id = id;
         this.trainerId = trainerId;
-        this.gateway = gateway;
-        this.gatewayAccountId = gatewayAccountId;
+        this.gatewayPayoutId = gatewayPayoutId;
+        this.amount = amount;
         this.status = status;
         this.createdAt = createdAt;
     }
@@ -56,20 +56,20 @@ public class TrainerAccountEntity {
         this.trainerId = trainerId;
     }
 
-    public String getGateway() {
-        return gateway;
+    public String getGatewayPayoutId() {
+        return gatewayPayoutId;
     }
 
-    public void setGateway(String gateway) {
-        this.gateway = gateway;
+    public void setGatewayPayoutId(String gatewayPayoutId) {
+        this.gatewayPayoutId = gatewayPayoutId;
     }
 
-    public String getGatewayAccountId() {
-        return gatewayAccountId;
+    public Long getAmount() {
+        return amount;
     }
 
-    public void setGatewayAccountId(String gatewayAccountId) {
-        this.gatewayAccountId = gatewayAccountId;
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     public String getStatus() {

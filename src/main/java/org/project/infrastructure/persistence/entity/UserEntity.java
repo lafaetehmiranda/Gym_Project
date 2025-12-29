@@ -5,6 +5,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import org.project.domain.enums.UserType;
 
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class UserEntity {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
     private UserType userType;
 
     private String name;
@@ -25,15 +27,19 @@ public class UserEntity {
 
     private String password;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     public UserEntity() {
     }
 
-    public UserEntity(UUID id, UserType userType, String name, String email, String password) {
+    public UserEntity(UUID id, UserType userType, String name, String email, String password, String phoneNumber) {
         this.id = id;
         this.userType = userType;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
 
     public UUID getId() {
@@ -74,5 +80,13 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

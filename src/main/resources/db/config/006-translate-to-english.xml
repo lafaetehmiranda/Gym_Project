@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="006-translate-to-english" author="system">
+        <!-- Rename Onboarding Table -->
+        <renameTable oldTableName="onboarding_aluno" newTableName="student_onboarding"/>
+        
+        <!-- Rename Columns in student_onboarding -->
+        <renameColumn tableName="student_onboarding" oldColumnName="objetivo" newColumnName="goal"/>
+        <renameColumn tableName="student_onboarding" oldColumnName="experiencia" newColumnName="experience_level"/>
+        <renameColumn tableName="student_onboarding" oldColumnName="disponibilidade" newColumnName="availability"/>
+        <renameColumn tableName="student_onboarding" oldColumnName="observacoes" newColumnName="observations"/>
+        <renameColumn tableName="student_onboarding" oldColumnName="criado_em" newColumnName="created_at"/>
+        <renameColumn tableName="student_onboarding" oldColumnName="atualizado_em" newColumnName="updated_at"/>
+
+
+        <!-- Rename onboarding_preferencias table to English -->
+        <renameTable oldTableName="onboarding_preferencias" newTableName="onboarding_preferences"/>
+        
+        <!-- Rename Columns in onboarding_preferences (linked to student_onboarding) -->
+        <renameColumn tableName="onboarding_preferences" oldColumnName="preferencia" newColumnName="preference"/>
+        
+        <!-- Rename Columns in trainees -->
+        <renameColumn tableName="trainees" oldColumnName="disponibilidade" newColumnName="availability"/>
+    </changeSet>
+
+</databaseChangeLog>

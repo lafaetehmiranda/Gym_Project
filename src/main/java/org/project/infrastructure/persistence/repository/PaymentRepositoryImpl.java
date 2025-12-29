@@ -19,4 +19,13 @@ public class PaymentRepositoryImpl implements PanacheRepositoryBase<PaymentEntit
     public Optional<PaymentEntity> findByGatewayPaymentId(String gatewayPaymentId) {
         return find("gatewayPaymentId", gatewayPaymentId).firstResultOptional();
     }
+
+    @Override
+    public Long sumPaidAmountByTrainerId(UUID trainerId) {
+        return (Long) getEntityManager()
+                .createQuery(
+                        "SELECT SUM(p.trainerAmount) FROM PaymentEntity p WHERE p.trainerId = :trainerId AND p.status = 'PAID'")
+                .setParameter("trainerId", trainerId)
+                .getSingleResult();
+    }
 }

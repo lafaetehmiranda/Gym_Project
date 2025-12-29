@@ -17,6 +17,6 @@ public class TraineeMapper {
                 trainee.getStudentId(),
                 trainee.getDescription(),
                 trainee.getValue(),
-                trainee.getDisponibilidade());
+                trainee.getAvailability());
     }
 }

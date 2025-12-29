@@ -5,10 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="db/config/001-initial-schema.xml"/>
-    <include file="db/config/002-add-categories.xml"/>
-    <include file="db/config/003-stripe-and-chatgpt.xml"/>
-    <include file="db/config/004-add-user-password.xml"/>
-    <include file="db/config/005-add-user-phone.xml"/>
-    <include file="db/config/006-translate-to-english.xml"/>
+    <changeSet id="005-add-user-phone" author="system">
+        <addColumn tableName="users">
+            <column name="phone_number" type="VARCHAR(20)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

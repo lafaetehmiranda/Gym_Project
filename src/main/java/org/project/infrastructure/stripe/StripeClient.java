@@ -36,4 +36,17 @@ public class StripeClient {
 
         return PaymentIntent.create(params);
     }
+
+    public com.stripe.model.Payout createPayout(String connectedAccountId, Long amount) throws StripeException {
+        com.stripe.param.PayoutCreateParams params = com.stripe.param.PayoutCreateParams.builder()
+                .setAmount(amount)
+                .setCurrency("brl")
+                .build();
+
+        com.stripe.net.RequestOptions requestOptions = com.stripe.net.RequestOptions.builder()
+                .setStripeAccount(connectedAccountId)
+                .build();
+
+        return com.stripe.model.Payout.create(params, requestOptions);
+    }
 }

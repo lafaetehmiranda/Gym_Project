@@ -87,7 +87,6 @@ public class AuthResource {
     @PermitAll
     @Operation(summary = "Verify Google ID Token")
     public Response verifyGoogleToken(GoogleTokenVerifyRequest request) {
-        // Technically googleLogin already does this, but providing explicit endpoint
         TokenResponse response = authService.googleLogin(request.idToken());
         return Response.ok(response).build();
     }

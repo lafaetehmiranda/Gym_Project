@@ -15,7 +15,6 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @ApplicationScoped
 public class AuthService {
@@ -42,7 +41,8 @@ public class AuthService {
         }
 
         String hashedPassword = BCrypt.hashpw(request.password(), BCrypt.gensalt());
-        User user = User.create(request.userType(), request.name(), request.email(), hashedPassword);
+        User user = User.create(request.userType(), request.name(), request.email(), hashedPassword,
+                request.phoneNumber());
         User saved = userRepository.save(user);
         return userMapper.toDTO(saved);
     }
@@ -59,24 +59,12 @@ public class AuthService {
     }
 
     public TokenResponse refresh(String refreshToken) {
-        // In a real app, you'd use a separate JWT verification here to ensure it's a
-        // valid refresh token
-        // and check if it's blacklisted in Redis/DB.
-        // For this implementation, we will assume the token is passed and we extract
-        // the user email manually
-        // using the JwtService or direct parsing.
-
-        // Simplifying: Find user by email (this would come from the verified refresh
-        // token)
-        // For demonstration, we'll throw an error if not implemented properly with
-        // actual token parsing.
         throw new WebApplicationException(
-                "Refresh token validation requires actual token parsing. Logic implemented but needs token verification.",
+                "Refresh token validation requires actual token parsing.",
                 Response.Status.NOT_IMPLEMENTED);
     }
 
     public void logout(String token) {
-        // Implement token blacklisting if needed
     }
 
     public UserDTO getProfile(String email) {
@@ -96,9 +84,7 @@ public class AuthService {
         Optional<User> existingUser = userRepository.findByEmail(info.email());
         User user;
         if (existingUser.isEmpty()) {
-            // Register auto-magically or throw error? Usually auto-register.
-            // Using a default UserType for Google logins if new.
-            user = User.create(org.project.domain.enums.UserType.STUDENT, info.name(), info.email(), "");
+            user = User.create(org.project.domain.enums.UserType.STUDENT, info.name(), info.email(), "", "");
             user = userRepository.save(user);
         } else {
             user = existingUser.get();

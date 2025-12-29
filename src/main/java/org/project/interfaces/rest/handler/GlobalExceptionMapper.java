@@ -25,7 +25,6 @@ public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
 
         LOG.error("Application error: " + exceptionType, exception);
 
-        // Increment error counter
         registry.counter("application_errors_total",
                 List.of(Tag.of("type", exceptionType)))
                 .increment();

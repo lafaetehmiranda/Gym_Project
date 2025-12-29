@@ -16,7 +16,8 @@ public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUI
 
     @Override
     public User save(User user) {
-        UserEntity entity = new UserEntity(user.getId(), user.getUserType(), user.getName(), user.getEmail());
+        UserEntity entity = new UserEntity(user.getId(), user.getUserType(), user.getName(), user.getEmail(),
+                user.getPassword());
         persist(entity);
         return toDomain(entity);
     }
@@ -35,6 +36,12 @@ public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUI
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        UserEntity entity = find("email", email).firstResult();
+        return entity != null ? Optional.of(toDomain(entity)) : Optional.empty();
+    }
+
+    @Override
     public boolean deleteById(UUID id) {
         return delete("id = ?1", id) > 0;
     }
@@ -45,6 +52,7 @@ public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUI
     }
 
     private User toDomain(UserEntity entity) {
-        return new User(entity.getId(), entity.getUserType(), entity.getName(), entity.getEmail());
+        return new User(entity.getId(), entity.getUserType(), entity.getName(), entity.getEmail(),
+                entity.getPassword());
     }
 }

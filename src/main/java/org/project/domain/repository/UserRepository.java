@@ -14,6 +14,8 @@ public interface UserRepository {
 
     List<User> findAllDomain();
 
+    Optional<User> findByEmail(String email);
+
     boolean deleteById(UUID id);
 
     boolean existsById(UUID id);

@@ -23,14 +23,17 @@ public class UserEntity {
 
     private String email;
 
+    private String password;
+
     public UserEntity() {
     }
 
-    public UserEntity(UUID id, UserType userType, String name, String email) {
+    public UserEntity(UUID id, UserType userType, String name, String email, String password) {
         this.id = id;
         this.userType = userType;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public UUID getId() {
@@ -63,5 +66,13 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

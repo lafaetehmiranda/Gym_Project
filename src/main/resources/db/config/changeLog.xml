@@ -11,4 +11,5 @@
     <include file="db/config/004-add-user-password.xml"/>
     <include file="db/config/005-add-user-phone.xml"/>
     <include file="db/config/006-translate-to-english.xml"/>
+    <include file="db/config/007-rename-usertype-to-user-type.xml"/>
 </databaseChangeLog>

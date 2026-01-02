@@ -90,4 +90,13 @@ public class AuthResource {
         TokenResponse response = authService.googleLogin(request.idToken());
         return Response.ok(response).build();
     }
+
+    @POST
+    @Path("/firebase/login")
+    @PermitAll
+    @Operation(summary = "Login with Firebase ID Token")
+    public Response firebaseLogin(FirebaseLoginRequest request) {
+        TokenResponse response = authService.firebaseLogin(request.idToken());
+        return Response.ok(response).build();
+    }
 }

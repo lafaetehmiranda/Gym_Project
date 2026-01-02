@@ -13,6 +13,9 @@ import org.project.infrastructure.security.JwtService;
 import org.project.infrastructure.rest.GoogleAuthClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.mindrot.jbcrypt.BCrypt;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
+import com.google.firebase.auth.FirebaseAuthException;
 
 import java.util.Optional;
 
@@ -89,8 +92,31 @@ public class AuthService {
         } else {
             user = existingUser.get();
         }
-
         return generateTokenResponse(user);
+    }
+
+    @Transactional
+    public TokenResponse firebaseLogin(String idToken) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String email = decodedToken.getEmail();
+            String name = (String) decodedToken.getClaims().get("name");
+
+            Optional<User> existingUser = userRepository.findByEmail(email);
+            User user;
+            if (existingUser.isEmpty()) {
+                user = User.create(org.project.domain.enums.UserType.STUDENT,
+                        name != null ? name : "Firebase User",
+                        email, "", "");
+                user = userRepository.save(user);
+            } else {
+                user = existingUser.get();
+            }
+
+            return generateTokenResponse(user);
+        } catch (FirebaseAuthException e) {
+            throw new WebApplicationException("Invalid Firebase token", Response.Status.UNAUTHORIZED);
+        }
     }
 
     private TokenResponse generateTokenResponse(User user) {

@@ -2,6 +2,9 @@ package org.project.domain.model;
 
 import java.util.UUID;
 
+/**
+ * Domain model representing a training category.
+ */
 public class Category {
 
     private final UUID id;

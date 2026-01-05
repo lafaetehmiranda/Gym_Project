@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Database entity for Student onboarding.
+ */
 @Entity
 @Table(name = "student_onboarding")
 public class StudentOnboardingEntity {

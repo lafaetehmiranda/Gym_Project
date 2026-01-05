@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Repository interface for User persistence.
+ */
 public interface UserRepository {
 
     User save(User user);

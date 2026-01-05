@@ -10,6 +10,9 @@ import org.project.application.service.StudentOnboardingService;
 
 import java.util.UUID;
 
+/**
+ * REST resource for Student onboarding.
+ */
 @Path("/onboarding")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

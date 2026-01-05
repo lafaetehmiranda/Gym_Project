@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 
 import java.util.UUID;
 
+/**
+ * Database entity for Category.
+ */
 @Entity
 @Table(name = "categories")
 public class CategoryEntity {

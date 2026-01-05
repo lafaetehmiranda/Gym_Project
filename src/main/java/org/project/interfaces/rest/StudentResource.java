@@ -22,6 +22,9 @@ import org.project.application.service.StudentService;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST resource for Student management.
+ */
 @Path("/api/students")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

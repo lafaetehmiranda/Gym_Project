@@ -15,6 +15,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Service for handling student onboarding business logic.
+ */
 @ApplicationScoped
 public class StudentOnboardingService {
 

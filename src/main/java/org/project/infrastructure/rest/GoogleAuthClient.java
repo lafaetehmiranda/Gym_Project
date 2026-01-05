@@ -5,6 +5,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
+/**
+ * REST client for Google Authentication.
+ */
 @RegisterRestClient(configKey = "google-auth-api")
 public interface GoogleAuthClient {
 

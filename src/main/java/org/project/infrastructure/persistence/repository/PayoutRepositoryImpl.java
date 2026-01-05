@@ -8,6 +8,9 @@ import org.project.infrastructure.persistence.entity.PayoutEntity;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Repository implementation for Payout.
+ */
 @ApplicationScoped
 public class PayoutRepositoryImpl implements PayoutRepository, PanacheRepositoryBase<PayoutEntity, UUID> {
 

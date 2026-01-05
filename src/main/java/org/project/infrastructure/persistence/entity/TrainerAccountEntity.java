@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Database entity for Trainer account.
+ */
 @Entity
 @Table(name = "trainer_accounts")
 public class TrainerAccountEntity {

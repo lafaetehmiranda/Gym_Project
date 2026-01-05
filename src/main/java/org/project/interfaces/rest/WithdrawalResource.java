@@ -7,6 +7,9 @@ import jakarta.ws.rs.core.Response;
 import org.project.application.service.WithdrawalService;
 import java.util.UUID;
 
+/**
+ * REST resource for managing trainer withdrawals.
+ */
 @Path("/withdrawals")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

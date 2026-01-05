@@ -10,6 +10,9 @@ import org.project.domain.enums.UserType;
 
 import java.util.UUID;
 
+/**
+ * Database entity for User.
+ */
 @Entity
 @Table(name = "users")
 public class UserEntity {

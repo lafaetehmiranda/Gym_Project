@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.project.application.dto.TraineeDTO;
 import org.project.domain.model.Trainee;
 
+/**
+ * Mapper for converting between Trainee domain model and DTO.
+ */
 @ApplicationScoped
 public class TraineeMapper {
 

@@ -9,6 +9,9 @@ import org.jboss.logging.Logger;
 
 import java.util.UUID;
 
+/**
+ * Service for handling collection and payment reminder business logic.
+ */
 @ApplicationScoped
 public class CollectionService {
 

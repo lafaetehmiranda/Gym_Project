@@ -7,6 +7,9 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.project.infrastructure.rest.dto.GeminiRequest;
 import org.project.infrastructure.rest.dto.GeminiResponse;
 
+/**
+ * REST client for Gemini AI API.
+ */
 @RegisterRestClient(configKey = "gemini-api")
 @Path("/v1/models")
 public interface GeminiClient {

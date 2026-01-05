@@ -8,6 +8,9 @@ import org.project.infrastructure.persistence.entity.PaymentEntity;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Repository implementation for Payment.
+ */
 @ApplicationScoped
 public class PaymentRepositoryImpl implements PanacheRepositoryBase<PaymentEntity, UUID>, PaymentRepository {
     @Override

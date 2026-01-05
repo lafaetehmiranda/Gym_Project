@@ -15,6 +15,9 @@ import org.project.domain.repository.CategoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * REST resource for training categories.
+ */
 @Path("/api/categories")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

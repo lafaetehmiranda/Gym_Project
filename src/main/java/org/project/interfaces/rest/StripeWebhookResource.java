@@ -12,6 +12,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.project.application.service.PaymentService;
 import org.jboss.logging.Logger;
 
+/**
+ * REST resource for handling Stripe webhooks.
+ */
 @Path("/webhooks/stripe")
 public class StripeWebhookResource {
 

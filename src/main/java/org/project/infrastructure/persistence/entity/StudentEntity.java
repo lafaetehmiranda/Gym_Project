@@ -8,6 +8,9 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Database entity for Student.
+ */
 @Entity
 @Table(name = "students")
 public class StudentEntity {

@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Repository implementation for Student onboarding.
+ */
 @ApplicationScoped
 public class StudentOnboardingRepositoryImpl
         implements PanacheRepositoryBase<StudentOnboardingEntity, UUID>, StudentOnboardingRepository {

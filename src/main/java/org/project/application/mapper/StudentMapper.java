@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.project.application.dto.StudentDTO;
 import org.project.domain.model.Student;
 
+/**
+ * Mapper for converting between Student domain model and DTO.
+ */
 @ApplicationScoped
 public class StudentMapper {
 

@@ -4,6 +4,9 @@ import org.project.infrastructure.persistence.entity.PayoutEntity;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Repository interface for Payout persistence.
+ */
 public interface PayoutRepository {
     void persist(PayoutEntity payout);
 

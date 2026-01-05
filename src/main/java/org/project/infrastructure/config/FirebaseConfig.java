@@ -17,6 +17,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;
 
+/**
+ * Configuration class for Firebase integration.
+ */
 @ApplicationScoped
 public class FirebaseConfig {
 

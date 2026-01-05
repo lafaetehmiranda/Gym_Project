@@ -7,6 +7,9 @@ import jakarta.ws.rs.core.Response;
 import org.project.application.service.CollectionService;
 import java.util.UUID;
 
+/**
+ * REST resource for managing collections and reminders.
+ */
 @Path("/collections")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

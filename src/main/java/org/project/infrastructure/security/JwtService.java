@@ -9,6 +9,9 @@ import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Service for generating and managing JWT tokens.
+ */
 @ApplicationScoped
 public class JwtService {
 

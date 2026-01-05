@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Repository implementation for Student.
+ */
 @ApplicationScoped
 public class StudentRepositoryImpl implements PanacheRepositoryBase<StudentEntity, UUID>, StudentRepository {
 

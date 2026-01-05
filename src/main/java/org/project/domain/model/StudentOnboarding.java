@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Domain model representing student onboarding data.
+ */
 public class StudentOnboarding {
 
     private final UUID id;

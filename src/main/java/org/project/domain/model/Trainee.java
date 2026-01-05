@@ -3,6 +3,9 @@ package org.project.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Domain model representing a trainee.
+ */
 public class Trainee {
 
     private final UUID id;

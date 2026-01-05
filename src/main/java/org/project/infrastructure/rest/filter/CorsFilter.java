@@ -7,6 +7,9 @@ import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
 
+/**
+ * Filter for handling CORS headers.
+ */
 @Provider
 public class CorsFilter implements ContainerResponseFilter {
 

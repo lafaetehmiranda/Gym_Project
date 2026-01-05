@@ -3,6 +3,9 @@ package org.project.infrastructure.notification;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 
+/**
+ * Service for sending WhatsApp notifications.
+ */
 @ApplicationScoped
 public class WhatsAppService {
 

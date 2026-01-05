@@ -14,6 +14,9 @@ import com.stripe.exception.StripeException;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Service for handling trainer withdrawal business logic.
+ */
 @ApplicationScoped
 public class WithdrawalService {
 

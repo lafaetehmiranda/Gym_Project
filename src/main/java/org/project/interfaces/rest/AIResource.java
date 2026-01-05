@@ -8,6 +8,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.project.application.service.GeminiService;
 
+/**
+ * REST resource for AI chat interactions.
+ */
 @Path("/chat")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

@@ -16,6 +16,9 @@ import org.project.infrastructure.notification.EmailService;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Service for handling payment and transaction business logic.
+ */
 @ApplicationScoped
 public class PaymentService {
 

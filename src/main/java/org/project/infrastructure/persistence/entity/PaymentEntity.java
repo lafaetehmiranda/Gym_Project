@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Database entity for Payment.
+ */
 @Entity
 @Table(name = "payments")
 public class PaymentEntity {

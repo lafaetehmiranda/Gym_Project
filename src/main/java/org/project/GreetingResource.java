@@ -5,6 +5,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+/**
+ * Basic greeting REST resource.
+ */
 @Path("/hello")
 public class GreetingResource {
 

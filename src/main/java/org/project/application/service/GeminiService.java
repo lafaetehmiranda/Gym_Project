@@ -12,6 +12,9 @@ import org.project.infrastructure.rest.dto.GeminiResponse;
 
 import java.util.List;
 
+/**
+ * Service for interacting with Google's Gemini AI.
+ */
 @ApplicationScoped
 public class GeminiService {
 

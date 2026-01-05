@@ -7,6 +7,9 @@ import jakarta.inject.Inject;
 import org.project.infrastructure.persistence.entity.PaymentEntity;
 import org.jboss.logging.Logger;
 
+/**
+ * Service for sending email notifications.
+ */
 @ApplicationScoped
 public class EmailService {
 

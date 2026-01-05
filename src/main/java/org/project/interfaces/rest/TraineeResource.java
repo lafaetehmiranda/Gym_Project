@@ -23,6 +23,9 @@ import org.project.application.service.TraineeService;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST resource for Trainee management.
+ */
 @Path("/api/trainees")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

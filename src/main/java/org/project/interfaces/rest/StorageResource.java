@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * REST resource for file storage operations.
+ */
 @Path("/storage")
 @Tag(name = "Storage")
 @Produces(MediaType.APPLICATION_JSON)

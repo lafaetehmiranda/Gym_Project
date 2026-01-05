@@ -4,6 +4,9 @@ import org.project.infrastructure.persistence.entity.PaymentEntity;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Repository interface for Payment persistence.
+ */
 public interface PaymentRepository {
     void persist(PaymentEntity payment);
 

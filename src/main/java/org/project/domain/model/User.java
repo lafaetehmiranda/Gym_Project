@@ -4,6 +4,9 @@ import org.project.domain.enums.UserType;
 
 import java.util.UUID;
 
+/**
+ * Domain model representing a user in the system.
+ */
 public class User {
 
     private final UUID id;

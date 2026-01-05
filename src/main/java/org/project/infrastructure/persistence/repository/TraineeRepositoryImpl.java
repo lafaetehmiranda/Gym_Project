@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Repository implementation for Trainee.
+ */
 @ApplicationScoped
 public class TraineeRepositoryImpl implements PanacheRepositoryBase<TraineeEntity, UUID>, TraineeRepository {
 

@@ -12,6 +12,9 @@ import org.project.application.service.AuthService;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
+/**
+ * REST resource for Authentication and Authorization.
+ */
 @Path("/api/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

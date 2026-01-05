@@ -19,6 +19,9 @@ import org.project.application.service.UserService;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST resource for User management.
+ */
 @Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

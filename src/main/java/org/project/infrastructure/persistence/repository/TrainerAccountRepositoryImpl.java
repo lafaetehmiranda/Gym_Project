@@ -8,6 +8,9 @@ import org.project.infrastructure.persistence.entity.TrainerAccountEntity;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Repository implementation for Trainer account.
+ */
 @ApplicationScoped
 public class TrainerAccountRepositoryImpl
         implements PanacheRepositoryBase<TrainerAccountEntity, UUID>, TrainerAccountRepository {

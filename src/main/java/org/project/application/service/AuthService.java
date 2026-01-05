@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 import java.util.Optional;
 
+/**
+ * Service for handling authentication business logic.
+ */
 @ApplicationScoped
 public class AuthService {
 

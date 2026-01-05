@@ -11,6 +11,9 @@ import org.project.infrastructure.persistence.entity.PaymentEntity;
 
 import java.util.UUID;
 
+/**
+ * REST resource for managing payments.
+ */
 @Path("/payments")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

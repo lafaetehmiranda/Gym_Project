@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Repository implementation for User.
+ */
 @ApplicationScoped
 public class UserRepositoryImpl implements PanacheRepositoryBase<UserEntity, UUID>, UserRepository {
 

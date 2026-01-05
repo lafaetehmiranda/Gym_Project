@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.project.application.dto.CategoryDTO;
 import org.project.domain.model.Category;
 
+/**
+ * Mapper for converting between Category domain model and DTO.
+ */
 @ApplicationScoped
 public class CategoryMapper {
 

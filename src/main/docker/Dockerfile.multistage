@@ -1,5 +1,5 @@
 ## Stage 1: Build with Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 WORKDIR /usr/src/app

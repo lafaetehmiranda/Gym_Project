@@ -28,16 +28,19 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final UserMapper userMapper;
+    private final FirebaseAuth firebaseAuth;
 
     @Inject
     @RestClient
     GoogleAuthClient googleAuthClient;
 
     @Inject
-    public AuthService(UserRepository userRepository, JwtService jwtService, UserMapper userMapper) {
+    public AuthService(UserRepository userRepository, JwtService jwtService, UserMapper userMapper,
+            FirebaseAuth firebaseAuth) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.userMapper = userMapper;
+        this.firebaseAuth = firebaseAuth;
     }
 
     @Transactional
@@ -99,17 +102,21 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenResponse firebaseLogin(String idToken) {
+    public TokenResponse firebaseLogin(String idToken, org.project.domain.enums.UserType userType) {
         try {
-            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            FirebaseToken decodedToken = firebaseAuth.verifyIdToken(idToken);
             String email = decodedToken.getEmail();
             String name = (String) decodedToken.getClaims().get("name");
 
             Optional<User> existingUser = userRepository.findByEmail(email);
             User user;
             if (existingUser.isEmpty()) {
-                user = User.create(org.project.domain.enums.UserType.STUDENT,
-                        name != null ? name : "Firebase User",
+                String firebaseName = (String) decodedToken.getClaims().get("name");
+                if (firebaseName == null)
+                    firebaseName = decodedToken.getName();
+
+                user = User.create(userType != null ? userType : org.project.domain.enums.UserType.STUDENT,
+                        firebaseName != null ? firebaseName : "Firebase User",
                         email, "", "");
                 user = userRepository.save(user);
             } else {

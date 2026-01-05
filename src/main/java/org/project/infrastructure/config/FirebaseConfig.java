@@ -16,6 +16,7 @@ import org.jboss.logging.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Optional;
 
 /**
  * Configuration class for Firebase integration.
@@ -26,13 +27,13 @@ public class FirebaseConfig {
     private static final Logger LOG = Logger.getLogger(FirebaseConfig.class);
 
     @ConfigProperty(name = "firebase.config.path")
-    String firebaseConfigPath;
+    Optional<String> firebaseConfigPath;
 
     @ConfigProperty(name = "firebase.storage.bucket")
     String storageBucket;
 
-    @ConfigProperty(name = "firebase.config.base64", defaultValue = "")
-    String firebaseConfigBase64;
+    @ConfigProperty(name = "firebase.config.base64")
+    Optional<String> firebaseConfigBase64;
 
     void onStart(@Observes StartupEvent ev) {
         initializeFirebase();
@@ -45,19 +46,21 @@ public class FirebaseConfig {
 
                 InputStream serviceAccount;
 
-                if (firebaseConfigBase64 != null && !firebaseConfigBase64.isBlank()) {
+                if (firebaseConfigBase64.isPresent() && !firebaseConfigBase64.get().isBlank()) {
                     LOG.info("Using Firebase config from environment variable.");
-                    byte[] decoded = Base64.getDecoder().decode(firebaseConfigBase64.trim());
+                    byte[] decoded = Base64.getDecoder().decode(firebaseConfigBase64.get().trim());
                     serviceAccount = new ByteArrayInputStream(decoded);
-                } else {
-                    LOG.info("Loading Firebase config from classpath: " + firebaseConfigPath);
+                } else if (firebaseConfigPath.isPresent()) {
+                    LOG.info("Loading Firebase config from classpath: " + firebaseConfigPath.get());
                     serviceAccount = Thread.currentThread().getContextClassLoader()
-                            .getResourceAsStream(firebaseConfigPath);
+                            .getResourceAsStream(firebaseConfigPath.get());
+                } else {
+                    LOG.error("Firebase configuration missing (no Base64 env var and no path provided)");
+                    return;
                 }
 
                 if (serviceAccount == null) {
-                    LOG.error("Firebase config not found (no Base64 env var and file missing in classpath: "
-                            + firebaseConfigPath + ")");
+                    LOG.error("Firebase config not found (no Base64 env var and file missing in classpath)");
                     return;
                 }
 
@@ -87,5 +90,20 @@ public class FirebaseConfig {
         }
 
         return StorageClient.getInstance().bucket();
+    }
+
+    @Produces
+    @Singleton
+    public com.google.firebase.auth.FirebaseAuth produceAuth() {
+        if (FirebaseApp.getApps().isEmpty()) {
+            initializeFirebase();
+        }
+
+        if (FirebaseApp.getApps().isEmpty()) {
+            throw new IllegalStateException(
+                    "FirebaseApp has not been initialized. Check logs for errors during initialization.");
+        }
+
+        return com.google.firebase.auth.FirebaseAuth.getInstance();
     }
 }

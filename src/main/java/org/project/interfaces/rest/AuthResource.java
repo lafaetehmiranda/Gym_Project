@@ -99,7 +99,7 @@ public class AuthResource {
     @PermitAll
     @Operation(summary = "Login with Firebase ID Token")
     public Response firebaseLogin(FirebaseLoginRequest request) {
-        TokenResponse response = authService.firebaseLogin(request.idToken());
+        TokenResponse response = authService.firebaseLogin(request.idToken(), request.userType());
         return Response.ok(response).build();
     }
 }

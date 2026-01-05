@@ -159,7 +159,6 @@ public class AuthService {
         try {
             FirebaseToken decodedToken = firebaseAuth.get().verifyIdToken(idToken);
             String email = decodedToken.getEmail();
-            String name = (String) decodedToken.getClaims().get("name");
 
             Optional<User> existingUser = userRepository.findByEmail(email);
             User user;

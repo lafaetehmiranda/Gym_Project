@@ -16,7 +16,9 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 
+import jakarta.enterprise.inject.Instance;
 import java.util.Optional;
 
 /**
@@ -25,10 +27,12 @@ import java.util.Optional;
 @ApplicationScoped
 public class AuthService {
 
+    private static final org.jboss.logging.Logger LOG = org.jboss.logging.Logger.getLogger(AuthService.class);
+
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final UserMapper userMapper;
-    private final FirebaseAuth firebaseAuth;
+    private final Instance<FirebaseAuth> firebaseAuth;
 
     @Inject
     @RestClient
@@ -36,7 +40,7 @@ public class AuthService {
 
     @Inject
     public AuthService(UserRepository userRepository, JwtService jwtService, UserMapper userMapper,
-            FirebaseAuth firebaseAuth) {
+            Instance<FirebaseAuth> firebaseAuth) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.userMapper = userMapper;
@@ -49,11 +53,60 @@ public class AuthService {
             throw new WebApplicationException("Email already exists", Response.Status.CONFLICT);
         }
 
+        String formattedPhone = formatToE164(request.phoneNumber());
+
+        // Create user in Firebase
+        try {
+            UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest()
+                    .setEmail(request.email())
+                    .setPassword(request.password())
+                    .setDisplayName(request.name());
+
+            if (formattedPhone != null) {
+                createRequest.setPhoneNumber(formattedPhone);
+            }
+
+            firebaseAuth.get().createUser(createRequest);
+        } catch (FirebaseAuthException e) {
+            if ("email-already-exists".equals(e.getErrorCode())) {
+                // User already in Firebase, proceed with local creation
+            } else if ("invalid-phone-number".equals(e.getErrorCode())) {
+                throw new WebApplicationException(
+                        "Invalid phone number format. Please use a format like +5511999999999",
+                        Response.Status.BAD_REQUEST);
+            } else {
+                LOG.error("Error creating Firebase user: " + e.getMessage() + " Code: " + e.getErrorCode(), e);
+                throw new WebApplicationException("Error creating Firebase user: " + e.getMessage(),
+                        Response.Status.INTERNAL_SERVER_ERROR);
+            }
+        }
+
         String hashedPassword = BCrypt.hashpw(request.password(), BCrypt.gensalt());
         User user = User.create(request.userType(), request.name(), request.email(), hashedPassword,
-                request.phoneNumber());
+                formattedPhone);
         User saved = userRepository.save(user);
         return userMapper.toDTO(saved);
+    }
+
+    private String formatToE164(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            return null;
+        }
+
+        // Remove any non-digit characters except '+'
+        String cleaned = phoneNumber.replaceAll("[^\\d+]", "");
+
+        if (cleaned.startsWith("+")) {
+            return cleaned;
+        }
+
+        // If it doesn't start with '+', we assume it's a number that needs it.
+        // For now, let's just prepend '+' if it's all digits.
+        if (cleaned.matches("\\d+")) {
+            return "+" + cleaned;
+        }
+
+        return cleaned; // Let Firebase validate if it's still weird
     }
 
     public TokenResponse login(LoginRequest request) {
@@ -104,7 +157,7 @@ public class AuthService {
     @Transactional
     public TokenResponse firebaseLogin(String idToken, org.project.domain.enums.UserType userType) {
         try {
-            FirebaseToken decodedToken = firebaseAuth.verifyIdToken(idToken);
+            FirebaseToken decodedToken = firebaseAuth.get().verifyIdToken(idToken);
             String email = decodedToken.getEmail();
             String name = (String) decodedToken.getClaims().get("name");
 

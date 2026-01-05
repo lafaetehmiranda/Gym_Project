@@ -16,6 +16,7 @@ import org.jboss.logging.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;
+
 import java.util.Optional;
 
 /**
@@ -40,40 +41,97 @@ public class FirebaseConfig {
     }
 
     private synchronized void initializeFirebase() {
-        try {
-            if (FirebaseApp.getApps().isEmpty()) {
-                LOG.info("Attempting to initialize Firebase Admin SDK...");
+        if (FirebaseApp.getApps().isEmpty()) {
+            LOG.info("Attempting to initialize Firebase Admin SDK...");
 
-                InputStream serviceAccount;
+            InputStream serviceAccount = null;
 
-                if (firebaseConfigBase64.isPresent() && !firebaseConfigBase64.get().isBlank()) {
-                    LOG.info("Using Firebase config from environment variable.");
-                    byte[] decoded = Base64.getDecoder().decode(firebaseConfigBase64.get().trim());
-                    serviceAccount = new ByteArrayInputStream(decoded);
-                } else if (firebaseConfigPath.isPresent()) {
-                    LOG.info("Loading Firebase config from classpath: " + firebaseConfigPath.get());
-                    serviceAccount = Thread.currentThread().getContextClassLoader()
-                            .getResourceAsStream(firebaseConfigPath.get());
+            if (firebaseConfigBase64.isPresent() && !firebaseConfigBase64.get().isBlank()) {
+                String b64 = firebaseConfigBase64.get().trim();
+                if (b64.startsWith("{")) {
+                    LOG.info("Firebase config in env appears to be raw JSON.");
+                    serviceAccount = new ByteArrayInputStream(b64.getBytes());
                 } else {
-                    LOG.error("Firebase configuration missing (no Base64 env var and no path provided)");
-                    return;
+                    LOG.info("Decoding Firebase config from Base64.");
+                    try {
+                        byte[] decoded = Base64.getMimeDecoder().decode(b64);
+                        serviceAccount = new ByteArrayInputStream(decoded);
+                    } catch (Exception e) {
+                        LOG.error("Failed to decode Base64 config.", e);
+                    }
+                }
+            }
+
+            if (serviceAccount == null && firebaseConfigPath.isPresent()) {
+                String path = firebaseConfigPath.get();
+                LOG.info("Attempting to load Firebase config from: " + path);
+
+                // 1. Try context classloader
+                serviceAccount = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+                if (serviceAccount != null) {
+                    LOG.info("Found config in context classloader.");
                 }
 
+                // 2. Try class resource (absolute)
                 if (serviceAccount == null) {
-                    LOG.error("Firebase config not found (no Base64 env var and file missing in classpath)");
-                    return;
+                    serviceAccount = FirebaseConfig.class.getResourceAsStream("/" + path);
+                    if (serviceAccount != null)
+                        LOG.info("Found config in class resource (absolute).");
                 }
+
+                // 3. Try class resource (relative - unlikely but safe to try)
+                if (serviceAccount == null) {
+                    serviceAccount = FirebaseConfig.class.getResourceAsStream(path);
+                    if (serviceAccount != null)
+                        LOG.info("Found config in class resource (relative).");
+                }
+
+                // 4. Try filesystem (src/main/resources) - Good for local dev if classpath is
+                // weird
+                if (serviceAccount == null) {
+                    try {
+                        java.io.File file = new java.io.File("src/main/resources/" + path);
+                        if (file.exists()) {
+                            serviceAccount = new java.io.FileInputStream(file);
+                            LOG.info("Found config in src/main/resources file system.");
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                // 5. Try filesystem (root)
+                if (serviceAccount == null) {
+                    try {
+                        java.io.File file = new java.io.File(path);
+                        if (file.exists()) {
+                            serviceAccount = new java.io.FileInputStream(file);
+                            LOG.info("Found config in root file system.");
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+
+            if (serviceAccount == null) {
+                LOG.error("Failed to locate Firebase config file: " + firebaseConfigPath.orElse("null")
+                        + ". Checked classpath and filesystem.");
+                throw new RuntimeException("Firebase configuration file not found. Please ensure "
+                        + firebaseConfigPath.orElse("null") + " is in the classpath or root directory.");
+            }
+
+            try {
+                GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 
                 FirebaseOptions options = FirebaseOptions.builder()
-                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                        .setCredentials(credentials)
                         .setStorageBucket(storageBucket)
                         .build();
 
                 FirebaseApp.initializeApp(options);
-                LOG.info("Firebase Admin SDK initialized successfully with bucket: " + storageBucket);
+                LOG.info("Firebase Admin SDK initialized successfully.");
+            } catch (java.io.IOException e) {
+                throw new RuntimeException("Failed to initialize Firebase: I/O Error reading credentials.", e);
             }
-        } catch (Exception e) {
-            LOG.error("Error initializing Firebase Admin SDK", e);
         }
     }
 

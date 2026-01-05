@@ -11,6 +11,9 @@ import org.jboss.logging.Logger;
 
 import java.util.List;
 
+/**
+ * Global exception handler for the application.
+ */
 @Provider
 public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
 
